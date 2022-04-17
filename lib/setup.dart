@@ -104,6 +104,7 @@ class _SetupFormState extends State<SetupForm> {
     return Expanded(
         flex: 2,
         child: ListView.builder(
+          controller: ScrollController(initialScrollOffset: 1),
           itemCount: widget.data.entries.length + 1,
           itemBuilder: (context, index) => index < widget.data.entries.length
               ? FormEntry(index, widget.data, controllers)
@@ -170,18 +171,17 @@ class FormEntry extends StatelessWidget {
               child: Focus(
                 onFocusChange: (focus) {
                   if (!focus) {
-                    titleController.text = data.getTitleByIndex(index);
+                    data.setEntry(
+                        index,
+                        PieEntry(
+                            titleController.text, data.getValueByIndex(index)));
                   }
                 },
                 child: TextField(
                   controller: titleController,
                   onSubmitted: (text) {
                     data.setEntry(
-                        index,
-                        PieEntry(
-                            text,
-                            double.tryParse(valueController.text) ??
-                                data.getValueByIndex(index)));
+                        index, PieEntry(text, data.getValueByIndex(index)));
                   },
                 ),
               ),
@@ -193,7 +193,15 @@ class FormEntry extends StatelessWidget {
               child: Focus(
                 onFocusChange: (focus) {
                   if (!focus) {
-                    titleController.text = data.getTitleByIndex(index);
+                    if (double.tryParse(valueController.text) != null) {
+                      data.setEntry(
+                          index,
+                          PieEntry(titleController.text,
+                              double.tryParse(valueController.text)));
+                    } else {
+                      valueController.text =
+                          data.getValueByIndex(index).toStringAsFixed(0);
+                    }
                   }
                 },
                 child: TextField(
