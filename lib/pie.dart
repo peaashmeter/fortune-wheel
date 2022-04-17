@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 class PiePage extends StatelessWidget {
   final List<PieEntry> data;
-  const PiePage(this.data, {Key? key}) : super(key: key);
+  final String title;
+  const PiePage(this.data, this.title, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +14,14 @@ class PiePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Рулетка'),
+        title: Text(title),
         actions: [
           IconButton(
               onPressed: () {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SetupPage(List.from(data)),
+                      builder: (context) => SetupPage(List.from(data), title),
                     ));
               },
               icon: const Icon(Icons.edit))

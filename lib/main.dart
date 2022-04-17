@@ -9,6 +9,7 @@ void main() {
         colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.red, backgroundColor: Colors.white)),
     home: const PiePage(
-        [PieEntry('Первый', 1), PieEntry('Второй', 2), PieEntry('Третий', 3)]),
+        [PieEntry('Первый', 1), PieEntry('Второй', 2), PieEntry('Третий', 3)],
+        'Название'),
   ));
 }

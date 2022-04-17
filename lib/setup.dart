@@ -7,15 +7,19 @@ import 'package:provider/provider.dart';
 
 class SetupPage extends StatefulWidget {
   final List<PieEntry> data;
-  const SetupPage(this.data, {Key? key}) : super(key: key);
+  final String title;
+  const SetupPage(this.data, this.title, {Key? key}) : super(key: key);
 
   @override
   State<SetupPage> createState() => _SetupPageState();
 }
 
 class _SetupPageState extends State<SetupPage> {
+  late TextEditingController titleController;
+
   @override
   void initState() {
+    titleController = TextEditingController(text: widget.title);
     super.initState();
   }
 
@@ -32,14 +36,21 @@ class _SetupPageState extends State<SetupPage> {
         create: (context) => DataModel(widget.data),
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Настройка'),
+            title: TextField(
+              controller: titleController,
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.w600),
+              cursorColor: Colors.white,
+              textCapitalization: TextCapitalization.sentences,
+            ),
             actions: [
               IconButton(
                   onPressed: () {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PiePage(List.from(widget.data)),
+                          builder: (context) => PiePage(
+                              List.from(widget.data), titleController.text),
                         ));
                   },
                   icon: const Icon(Icons.pie_chart))
@@ -183,6 +194,7 @@ class FormEntry extends StatelessWidget {
                     data.setEntry(
                         index, PieEntry(text, data.getValueByIndex(index)));
                   },
+                  textCapitalization: TextCapitalization.sentences,
                 ),
               ),
             )),
@@ -217,6 +229,7 @@ class FormEntry extends StatelessWidget {
                           data.getValueByIndex(index).toStringAsFixed(0);
                     }
                   },
+                  keyboardType: TextInputType.number,
                 ),
               ),
             )),
