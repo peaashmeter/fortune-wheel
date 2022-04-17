@@ -326,4 +326,10 @@ class PieEntry {
   final String? title;
   final double? value;
   const PieEntry(this.title, this.value);
+  PieEntry.fromJson(Map<String, dynamic> json)
+      : title = json['title'],
+        value = json['value'];
+
+  Map<String, dynamic> get toJson =>
+      {'title': title ?? '', 'value': value ?? 0};
 }
