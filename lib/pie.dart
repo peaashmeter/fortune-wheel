@@ -57,13 +57,13 @@ class AnimationWrapper {
   void launchRotation() {
     if (rotationController.isDismissed || rotationController.isCompleted) {
       var start = rotationAnimation.value % (2 * pi);
-      var sweep = 4 * pi + Random().nextDouble() * 2 * pi;
+      var sweep = 8 * pi + Random().nextDouble() * 2 * pi;
 
       winnerController.reset();
 
       rotationAnimation = Tween<double>(begin: start, end: start + sweep)
           .animate(CurvedAnimation(
-              parent: rotationController, curve: Curves.easeOutExpo));
+              parent: rotationController, curve: Curves.easeOutQuart));
       rotationController.reset();
       rotationController.forward().then((value) {
         var end = -(rotationAnimation.value + pi / 2) % (2 * pi);
@@ -115,7 +115,7 @@ class _PieWidgetState extends State<PieWidget> with TickerProviderStateMixin {
   @override
   void initState() {
     controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 8));
+        AnimationController(vsync: this, duration: const Duration(seconds: 10));
 
     //fixes bug that makes hot restart not working
     widget.wrapper.rotationAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -316,7 +316,7 @@ class ChartPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 
   Color getColor(int n) => Colors.primaries[n % Colors.primaries.length];
 }
