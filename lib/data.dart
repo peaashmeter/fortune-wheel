@@ -11,7 +11,7 @@ class DataModel extends ChangeNotifier {
   UnmodifiableListView<PieEntry> get entries => UnmodifiableListView(_entries);
 
   void addBlank() {
-    _entries.add(const PieEntry('', 0));
+    _entries.add(const PieEntry('', 1));
 
     notifyListeners();
   }
