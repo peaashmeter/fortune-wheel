@@ -1,15 +1,27 @@
+import 'package:circle_sector/graph.dart';
 import 'package:flutter/material.dart';
 
 import 'pie.dart';
 
-void main() {
+void main() async {
+  //loading the last graph from cache
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  var json = await Graph.loadJson();
+  late Graph graph;
+
+  if (json == null) {
+    graph = Graph.default_;
+  } else {
+    graph = Graph.fromJson(json);
+  }
+
   runApp(MaterialApp(
     title: 'Рулетка',
     theme: ThemeData.from(
         colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.red, backgroundColor: Colors.white)),
-    home: const PiePage(
-        [PieEntry('Первый', 1), PieEntry('Второй', 2), PieEntry('Третий', 3)],
-        'Название'),
+    home: PiePage(graph),
   ));
 }

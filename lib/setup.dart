@@ -5,10 +5,13 @@ import 'package:circle_sector/pie.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'graph.dart';
+
 class SetupPage extends StatefulWidget {
-  final List<PieEntry> data;
-  final String title;
-  const SetupPage(this.data, this.title, {Key? key}) : super(key: key);
+  final Graph graph;
+  // final List<PieEntry> data;
+  // final String title;
+  const SetupPage(this.graph, {Key? key}) : super(key: key);
 
   @override
   State<SetupPage> createState() => _SetupPageState();
@@ -16,10 +19,12 @@ class SetupPage extends StatefulWidget {
 
 class _SetupPageState extends State<SetupPage> {
   late TextEditingController titleController;
+  late DataModel data;
 
   @override
   void initState() {
-    titleController = TextEditingController(text: widget.title);
+    titleController = TextEditingController(text: widget.graph.title);
+    data = DataModel(List.from(widget.graph.data));
     super.initState();
   }
 
@@ -33,7 +38,7 @@ class _SetupPageState extends State<SetupPage> {
         return false;
       },
       child: ChangeNotifierProvider(
-        create: (context) => DataModel(widget.data),
+        create: (context) => data,
         child: Scaffold(
           appBar: AppBar(
             title: TextField(
@@ -45,12 +50,13 @@ class _SetupPageState extends State<SetupPage> {
             ),
             actions: [
               IconButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    var graph = Graph(titleController.text, data.entries);
+                    await graph.saveToCache();
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PiePage(
-                              List.from(widget.data), titleController.text),
+                          builder: (context) => PiePage(graph),
                         ));
                   },
                   icon: const Icon(Icons.pie_chart))
@@ -125,7 +131,7 @@ class _SetupFormState extends State<SetupForm> {
                     controllers.addController(
                         widget.data.entries.length - 1,
                         ControllerWrapper(TextEditingController(text: ''),
-                            TextEditingController(text: '0')));
+                            TextEditingController(text: '1')));
                     setState(() {});
                   },
                   icon: const Icon(

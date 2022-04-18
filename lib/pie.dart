@@ -3,25 +3,28 @@ import 'dart:math';
 import 'package:circle_sector/setup.dart';
 import 'package:flutter/material.dart';
 
+import 'graph.dart';
+
 class PiePage extends StatelessWidget {
-  final List<PieEntry> data;
-  final String title;
-  const PiePage(this.data, this.title, {Key? key}) : super(key: key);
+  final Graph graph;
+  // final List<PieEntry> data;
+  // final String title;
+  const PiePage(this.graph, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var wrapper = AnimationWrapper(data);
+    var wrapper = AnimationWrapper(graph.data);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(graph.title),
         actions: [
           IconButton(
               onPressed: () {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SetupPage(List.from(data), title),
+                      builder: (context) => SetupPage(graph),
                     ));
               },
               icon: const Icon(Icons.edit))
@@ -31,7 +34,7 @@ class PiePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            PieWidget(wrapper, data),
+            PieWidget(wrapper, graph.data),
             WinnerTitle(wrapper),
             GoButton(wrapper)
           ],
