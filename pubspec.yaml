@@ -1,5 +1,5 @@
-name: circle_sector
-description: A new Flutter project.
+name: fortune_wheel
+description: An app that allows to generate a random value from a pie graph.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

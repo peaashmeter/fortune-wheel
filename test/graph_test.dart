@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:circle_sector/pie.dart';
+import 'package:fortune_wheel/graph.dart';
+import 'package:fortune_wheel/pie.dart';
 import 'package:test/test.dart';
-import 'package:circle_sector/graph.dart';
 
 void main() {
   group('Graph', () {

@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:circle_sector/pie.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'pie.dart';
 
 class Graph {
   late String title;

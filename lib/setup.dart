@@ -1,11 +1,11 @@
 import 'dart:collection';
 
-import 'package:circle_sector/data.dart';
-import 'package:circle_sector/pie.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'data.dart';
 import 'graph.dart';
+import 'pie.dart';
 
 class SetupPage extends StatefulWidget {
   final Graph graph;

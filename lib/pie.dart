@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:circle_sector/setup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'graph.dart';
+import 'setup.dart';
 
 class PiePage extends StatelessWidget {
   final Graph graph;

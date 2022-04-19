@@ -1,7 +1,8 @@
 import 'dart:collection';
 
-import 'package:circle_sector/pie.dart';
 import 'package:flutter/material.dart';
+
+import 'pie.dart';
 
 class DataModel extends ChangeNotifier {
   final List<PieEntry> _entries;

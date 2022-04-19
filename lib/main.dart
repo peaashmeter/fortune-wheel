@@ -1,6 +1,6 @@
-import 'package:circle_sector/graph.dart';
 import 'package:flutter/material.dart';
 
+import 'graph.dart';
 import 'pie.dart';
 
 void main() async {
