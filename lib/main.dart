@@ -18,6 +18,7 @@ void main() async {
   }
 
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     title: 'Рулетка',
     theme: ThemeData.from(
         colorScheme: ColorScheme.fromSwatch(
