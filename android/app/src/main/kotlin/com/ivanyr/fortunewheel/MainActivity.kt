@@ -1,4 +1,4 @@
-package com.example.circle_sector
+package com.ivanyr.fortunewheel
 
 import io.flutter.embedding.android.FlutterActivity
 
