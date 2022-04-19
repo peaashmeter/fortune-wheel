@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:circle_sector/setup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'graph.dart';
 
@@ -68,6 +69,27 @@ class AnimationWrapper {
       rotationAnimation = Tween<double>(begin: start, end: start + sweep)
           .animate(CurvedAnimation(
               parent: rotationController, curve: Curves.easeOutQuart));
+
+      //That's for detecting when the pointer crosses a border of a segment
+      //PieEntry? currentEntry;
+
+      // rotationAnimation.addListener(() {
+      //   var current = -(rotationAnimation.value + pi / 2) % (2 * pi);
+      //   var s = 0.0;
+      //   for (var e in data) {
+      //     s += e.value ?? 0;
+      //     if (current <= s) {
+      //       if (e != currentEntry) {
+      //         currentEntry = e;
+      //       }
+      //       break;
+      //     }
+      //   }
+      //   if (current > s) {
+      //     currentEntry = data.last;
+      //   }
+      // });
+
       rotationController.reset();
       rotationController.forward().then((value) {
         var end = -(rotationAnimation.value + pi / 2) % (2 * pi);
@@ -75,7 +97,7 @@ class AnimationWrapper {
         var s = 0.0;
         for (var e in data) {
           s += e.value ?? 0;
-          if (end < s) {
+          if (end <= s) {
             winner = e.title;
             winnerController.forward();
             break;
@@ -85,6 +107,8 @@ class AnimationWrapper {
           winner = data.last.title;
           winnerController.forward();
         }
+        Future.delayed(const Duration(milliseconds: 400))
+            .then((value) => HapticFeedback.mediumImpact());
       });
     }
   }
